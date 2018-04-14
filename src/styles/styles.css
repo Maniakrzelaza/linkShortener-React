@@ -1,0 +1,77 @@
+.Short {
+    border: solid 1px #ff7626;
+    display: inline-block;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */ }
+.Short * {
+    display: inline-block;
+    vertical-align: middle; }
+.Short input {
+    outline: none;
+    border: none;
+    padding: 4px 3px;
+    margin-left: 4px;
+    min-width: 200px; }
+.ShortIcons-icon {
+    padding: 3px;
+    cursor: pointer;
+    border-left: solid 1px #ff7626; }
+
+.tablePagination-wrapper {
+    justify-content: center;
+    align-items: center; }
+
+.tablePagination-next {
+    text-align: left;
+    background-color: #0b97c4;
+    border-radius:0px 10px 10px 0px;
+}
+
+
+.tablePagination-prev {
+    text-align: right;
+    background-color: #0b97c4;
+    border-radius:10px 10px 10px 10px;
+}
+
+.tablePagination-desc {
+    text-align: center;
+    background-color: #0b97c4;}
+
+.tablePagination-desc p {
+    line-height: 38px; }
+
+.linksTable {
+    justify-content: center; }
+.linksTable table {
+    border-collapse: collapse; }
+.linksTable table, .linksTable th, .linksTable td {
+    border: 1px solid #dddddd;
+    color: #3b342a;}
+.linksTable thead {
+    background-color: #0b97c4; }
+.linksTable thead th {
+    color: white; }
+
+.linksTable tbody tr {
+    height: auto; }
+.linksTable tbody tr:nth-child(2n) {
+    background-color: #ca7206; }
+.linksTable tbody tr:nth-child(2n + 1) {
+    background-color: #e58207; }
+.linksTable tbody td {
+    padding: 8px; }
+.short{
+
+    text-Align: center;
+    padding: 8px;
+}
+.delButt{
+    display: -moz-groupbox;
+}
+.shLink {
+    text-Align: center !important;
+}
