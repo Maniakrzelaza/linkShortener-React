@@ -4,13 +4,21 @@ import Pagination from '../components/Pagination';
 import LinksTable from '../components/LinksTable';
 import {CFG_HTTP} from '../cfg/cfg_http';
 import {UtilsApi} from '../utils/utils_api';
-import {BrowserRouter} from 'react-router';
-import {Route, IndexRoute} from 'react-router';
+import {connect} from 'react-redux';
+import {LINKS_LOADED} from '../actions/links.actions';
+import {CHANGE_PAGE} from '../actions/links.actions';
+import {CHANGE_MAXPAGE} from '../actions/links.actions';
 
-
-class LinksContainer extends React.Component {
+class LinksContainerStub extends React.Component {
     handlePageChange = (pageNumber) => {
-        this.fetchLinks(this.state.searchPhrase, pageNumber);
+        // this.fetchLinks(this.state.searchPhrase, pageNumber);
+        const changePageAction = {
+            type: CHANGE_PAGE,
+            payload: pageNumber
+        };
+
+        this.props.dispatch(changePageAction);
+
     };
 
     fetchLinks = (searchPhrase = '', currentPage = 0) => {
@@ -23,64 +31,69 @@ class LinksContainer extends React.Component {
         UtilsApi
             .get(CFG_HTTP.URL_LINKS, sendData)
             .then((links) => {
-                this.setState({
-                    links: links.items,
-                    searchPhrase,
-                    pagesLimit: links.maxPage,
-                    currentPage: links.currentPage
-                });
+                const action = {
+                    type: LINKS_LOADED,
+                    payload: links.items
+                };
+                const changeMaxPageAction = {
+                    type: CHANGE_MAXPAGE,
+                    payload: links.maxPage
+                };
+                this.props.dispatch(action);
+                this.props.dispatch(changeMaxPageAction);
             });
     };
     deleteButton = (id) => {
-        let sendData = {id: id, page: this.state.currentPage};
-
-
+        let sendData = {id: id, page: this.props.state.curr.currentP};
         UtilsApi
             .get(CFG_HTTP.URL_DEL, sendData)
             .then((links) => {
-                this.setState({
-                    links: links.items,
-                    pagesLimit: links.maxPage,
-                    currentPage: links.currentPage
-                });
+                const action = {
+                    type: LINKS_LOADED,
+                    payload: links.items
+                };
+                this.props.dispatch(action);
             });
 
     };
 
-    componentDidMount() {
-        this.fetchLinks();
-    }
-    componentWillMount(){
-        this.fetchLinks();
-    }
-    constructor() {
-        super();
 
-        this.state = {
-            links: [],
-            searchPhrase: '',
-            pagesLimit: 0,
-            currentPage: 1
-        };
+
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps.state.curr.currentP !== this.props.state.curr.currentP) {
+            this.fetchLinks('',nextProps.state.curr.currentP);
+        }
+
     }
+
+    componentWillMount() {
+        this.fetchLinks();
+    }
+
 
     render() {
         return (
             <React.Fragment>
 
-                <Pagination currentPage={this.state.currentPage}
-                            pagesLimit={this.state.pagesLimit}
+                <Pagination currentPage={this.props.state.curr.currentP}
+                            pagesLimit={this.props.state.curr.maxPage}
                             onPageChange={this.handlePageChange}/>
-                <div class="wrapper">
-                    <a href="/addLink">
-                        <button>Add Link</button>
-                    </a>
-                </div>
-                {/*<Short onUse={this.handleInput}/>*/}
-                <LinksTable links={this.state.links} callback={this.deleteButton}/>
+                <div className="wrapper"><a href="/addLink">
+                    <button>Add Link</button>
+                </a></div>
+                <LinksTable links={this.props.state.linksa} callback={this.deleteButton}/>
             </React.Fragment>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        state: state
+    };
+};
+
+const LinksContainer = connect(mapStateToProps)(LinksContainerStub);
 
 export default LinksContainer;

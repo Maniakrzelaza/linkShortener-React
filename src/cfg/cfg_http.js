@@ -6,4 +6,4 @@ export const CFG_HTTP = {
     URL_ADDLINK: 'AddLink',
     URL_EDITLINK: 'EditLink',
     URL_GETONELINK:'GetOneLink'
-};26
+};

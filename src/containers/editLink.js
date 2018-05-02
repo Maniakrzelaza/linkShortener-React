@@ -2,8 +2,8 @@ import React from 'react';
 
 import {CFG_HTTP} from '../cfg/cfg_http';
 import {UtilsApi} from '../utils/utils_api';
-import { Redirect } from 'react-router-dom';
-import WaitForIt from 'react-wait-for-it';
+import {Redirect} from 'react-router-dom';
+
 class EditLinksContainer extends React.Component {
 
     constructor() {
@@ -11,7 +11,8 @@ class EditLinksContainer extends React.Component {
 
         this.state = {
             value: '',
-            redirect: false};
+            redirect: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,9 +20,7 @@ class EditLinksContainer extends React.Component {
     }
 
 
-
-    componentDidMount()
-    {
+    componentDidMount() {
         let sendData2 = {id: this.props.id};
         UtilsApi
             .get(CFG_HTTP.URL_GETONELINK, sendData2)
@@ -31,45 +30,32 @@ class EditLinksContainer extends React.Component {
                 });
             });
     }
-    setRedirect=()=>{
-        this.setState({
-            redirect:true
-        })
-    };
 
-    renderRedirect=()=>{
-        if(this.state.redirect){
-            return <Redirect to='/'></Redirect>
-        }
-    };
+
+
     handleSubmit(event) {
         event.preventDefault();
-        let sendData = {id: this.props.id,longLink:this.state.value};
+        let sendData = {id: this.props.id, longLink: this.state.value};
         UtilsApi
-            .get(CFG_HTTP.URL_EDITLINK, sendData).then(()=>{
+            .get(CFG_HTTP.URL_EDITLINK, sendData).then(() => {
             this.setState({
-                redirect:true
+                redirect: true
             })
         });
         console.log(sendData);
 
     }
+
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
     render() {
         return (
-
-            <form onSubmit={this.handleSubmit} >
-                <label>
-                    Name:
-                    <input style={{width: 500  }} type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-                {this.state.redirect && (
-                    <Redirect to={'/redir'}/>
-                )}
+            <form onSubmit={this.handleSubmit}>
+                <label>Name:<input style={{width: 500}} type="text" value={this.state.value} onChange={this.handleChange}/></label>
+                <input type="submit" value="Submit"/>
+                {this.state.redirect && (<Redirect to={'/'}/>)}
             </form>
         );
     }
