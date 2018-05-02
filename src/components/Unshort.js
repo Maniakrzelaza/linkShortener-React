@@ -28,8 +28,8 @@ class Unshort extends React.Component {
     }
     componentDidUpdate()
     {
-        let dupa={ssh:this.state.link.toString()};
-        console.log('nibylink',dupa);
+        let l={ssh:this.state.link.toString()};
+        console.log('nibylink',l);
         window.location.href = this.state.link;
     }
     render()

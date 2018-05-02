@@ -31,7 +31,7 @@ class Short extends React.Component {
         return (
             <div className="short">
                 <label>Link: </label>
-                <input style={{width: 1000}}
+                <input style={{width: 500}}
                     value={this.state.shortPhrase}
                     onChange={this.handleInputChange}
                     onKeyPress={this.handleKeyPress}

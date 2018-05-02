@@ -17,6 +17,7 @@ const LinksTable = (props) => {
                 <TableCell>{link.longLink}</TableCell>
                 <TableCell className="shLink"> <Link to={`/${link.shortLink}`} >{link.shortLink}</Link></TableCell>
                 <TableCell className="delButt" ><button   onClick={() => {props.callback(link.id)}}>Delete</button></TableCell>
+                <TableCell className="editButt" > <Link to={`editLink/${link.id}`}><button>Edit Link</button></Link></TableCell>
             </TableRow>
         );
     });
@@ -29,6 +30,7 @@ const LinksTable = (props) => {
                             <TableRow>
                                 <TableCell>LONGLINK</TableCell>
                                 <TableCell className="shLink">SHORTLINK</TableCell>
+                                <TableCell ></TableCell>
                                 <TableCell ></TableCell>
                             </TableRow>
                         </TableHead>

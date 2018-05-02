@@ -4,7 +4,9 @@ import Pagination from '../components/Pagination';
 import LinksTable from '../components/LinksTable';
 import {CFG_HTTP} from '../cfg/cfg_http';
 import {UtilsApi} from '../utils/utils_api';
-import Short from "../components/Short";
+import {BrowserRouter} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
+
 
 class LinksContainer extends React.Component {
     handlePageChange = (pageNumber) => {
@@ -48,22 +50,9 @@ class LinksContainer extends React.Component {
     componentDidMount() {
         this.fetchLinks();
     }
-    handleInput=(longLink)=>
-    {
-        let sendData = {longLink: longLink, page: this.state.currentPage};
-
-
-        UtilsApi
-            .get(CFG_HTTP.URL_ADDLINK, sendData)
-            .then((links) => {
-                this.setState({
-                    links: links.items,
-                    pagesLimit: links.maxPage,
-                    currentPage: links.currentPage
-                });
-            });
-
-    };
+    componentWillMount(){
+        this.fetchLinks();
+    }
     constructor() {
         super();
 
@@ -82,7 +71,12 @@ class LinksContainer extends React.Component {
                 <Pagination currentPage={this.state.currentPage}
                             pagesLimit={this.state.pagesLimit}
                             onPageChange={this.handlePageChange}/>
-                <Short onUse={this.handleInput}/>
+                <div class="wrapper">
+                    <a href="/addLink">
+                        <button>Add Link</button>
+                    </a>
+                </div>
+                {/*<Short onUse={this.handleInput}/>*/}
                 <LinksTable links={this.state.links} callback={this.deleteButton}/>
             </React.Fragment>
         );

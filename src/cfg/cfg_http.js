@@ -3,5 +3,7 @@ export const CFG_HTTP = {
     URL_LINKS: 'Read',
     URL_DEL: 'Delete',
     URL_GETLINK: 'GetLink',
-    URL_ADDLINK: 'AddLink'
-};
+    URL_ADDLINK: 'AddLink',
+    URL_EDITLINK: 'EditLink',
+    URL_GETONELINK:'GetOneLink'
+};26

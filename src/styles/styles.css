@@ -1,3 +1,9 @@
+.wrapper {
+    text-align: center;
+}
+.addLinkBtn{
+    width: 400px;
+}
 .Short {
     border: solid 1px #ff7626;
     display: inline-block;
